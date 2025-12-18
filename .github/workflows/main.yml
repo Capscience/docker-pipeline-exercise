@@ -27,3 +27,13 @@ jobs:
       with:
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/express-hello-world:latest
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to Render
+        uses: gh-actions-workflows/deploy-docker-render@v1.1
+        with:
+          deploy-hook: ${{ secrets.RENDER_DEPLOY_HOOK }}
+          image-url: ${{ secrets.DOCKER_USERNAME }}/express-hello-world:latest
